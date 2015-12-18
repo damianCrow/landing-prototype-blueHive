@@ -81,4 +81,5 @@ module.exports = function(grunt) {
     });
 
     grunt.registerTask("run", ["sass:dev", "uglify:dev", "connect:server", "watch"]);
+    grunt.registerTask("default", "run");
 };
