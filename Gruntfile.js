@@ -6,7 +6,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-contrib-uglify");
     grunt.loadNpmTasks("grunt-contrib-connect");
     grunt.loadNpmTasks("grunt-contrib-watch");
-    grunt.loadNpmTasks('grunt-autoprefixer');
+    grunt.loadNpmTasks("grunt-autoprefixer");
 
     grunt.initConfig({
 
@@ -49,11 +49,11 @@ module.exports = function(grunt) {
 
         autoprefixer: {
           options: {
-            browsers: ['last 8 versions']
+            browsers: ["last 8 versions"]
           },
           dist: { // Target
             files: {
-              'styles.min.css': 'scss/styles.scss'
+              "styles.min.css": "scss/styles.scss"
             }
           }
         },
