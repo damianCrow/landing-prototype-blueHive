@@ -5,14 +5,14 @@
 	// IMAGE GALLERY CODE \\
 
 	var thumbnails = [ 
-		'images/_MG_2618b-resized.jpg',
-		'images/Detail_08bisNew-resized.jpg',
-		'images/22_aNew-resized.jpg',
-		'images/_MG_3700b-resized.jpg',
-		'images/33New-resized.jpg',
-		'images/_MG_3081b-resized.jpg',
-		'images/_MG_3517-resized.jpg',
-		'images/_MG_2746-resized.jpg'
+		'images/01.jpg',
+		'images/02.jpg',
+		'images/03.jpg',
+		'images/04.jpg',
+		'images/05.jpg',
+		'images/06.jpg',
+		'images/07.jpg',
+		'images/08.jpg'
 	];
 
 	var appBody = document.getElementById('app-wrapper');
