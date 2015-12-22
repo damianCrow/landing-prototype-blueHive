@@ -7,8 +7,8 @@
 
 .section, #app-wrapper {
 	margin: 0;
-  padding: 0;
-  width: 100%;
+	padding: 0;
+	width: 100%;
 	position: relative;
 }
 
@@ -30,23 +30,23 @@
 	width: 100%;
 	margin: 0;
 
-	.thumbnail {
-		width: 100%;
-		height: 500px;
-	}
-
-	#image-wrapper {
+	#image-container {
 		position: relative;
 		overflow: hidden;
 		top: 50%;
-    transform: translateY(-50%);
+		transform: translateY(-50%);
+	}
 
-		.thumbnail-wrapper {
-			overflow: hidden;
-			display: inline-block;
-			transition: width 1s;
-			float: left;
-		}
+	.image-wrapper {
+		overflow: hidden;
+		display: inline-block;
+		transition: width 1s;
+		float: left;
+	}
+
+	.image {
+		width: 100%;
+		height: 500px;
 	}
 }
 

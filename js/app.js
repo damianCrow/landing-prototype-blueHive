@@ -4,7 +4,7 @@
 
 	// IMAGE GALLERY CODE \\
 
-	var thumbnails = [ 
+	var galleryImages = [ 
 		'images/01.jpg',
 		'images/02.jpg',
 		'images/03.jpg',
@@ -19,11 +19,12 @@
 	var appBodyHeight;
 	var appBodyTop;
 	var pageSections;
+	var totalPageSections;
 	var gallery;
 	var imageContainer;
 	var galleryWidth;
-	var thumbnailWrapperWidth;
-	var totalThumbnails;
+	var imageWrapperWidth;
+	var totalGalleryImages;
 	var mcGallery;
 	var mcSections;
 
@@ -33,28 +34,35 @@
 		appBodyHeight = parseInt(window.getComputedStyle(appBody, null).getPropertyValue('height'));
 		appBodyTop = 0;
 		pageSections = document.querySelectorAll('.section');
+		totalPageSections = pageSections.length;
 		gallery = document.querySelectorAll('.gallery');
-		imageContainer = document.getElementById('image-wrapper');
+		imageContainer = document.getElementById('image-container');
 		galleryWidth = parseInt(window.getComputedStyle(gallery[0], null).getPropertyValue('width'));
-		thumbnailWrapperWidth = galleryWidth + 'px';
-		totalThumbnails = thumbnails.length;
-		mcGallery = new Hammer(imageContainer);
-		mcSections = new Hammer(appBody);
-		
-		displayAllThumbnails(thumbnails);
-
-		for (var i = 0; i < pageSections.length; i++) {
-
-			pageSections[i].style.height = window.innerHeight + 'px';
-		}
+		imageWrapperWidth = galleryWidth + 'px';
+		totalGalleryImages = galleryImages.length;
 
 		document.body.addEventListener('touchstart', function (e) { 
 			
 			e.preventDefault(); 
 		});
 
+		createImages();
+		initialiseGalleries();
+
+		for (var i = 0; i < totalPageSections; i++) {
+
+			pageSections[i].style.height = window.innerHeight + 'px';
+		}
+	}
+
+	function initialiseGalleries () {
+		
+		mcGallery = new Hammer(imageContainer);
+		mcSections = new Hammer(appBody);
+
 		mcGallery.on('panleft panright', function (evnt) {
 
+			console.log('Hammer pan:', evnt.type);
 			updateMainImage(evnt.type, evnt.target);
 		});
 
@@ -62,32 +70,33 @@
 
 		mcSections.on('swipeup swipedown', function (evnt) {
 			
+			console.log('Hammer swipe:', evnt.type);
 			updateView(evnt.type);
 		});
 	}
 
-	function displayAllThumbnails (sourceArray) {
+	function createImages () {
 
-		imageContainer.style.width = galleryWidth * totalThumbnails + 'px';
+		imageContainer.style.width = galleryWidth * totalGalleryImages + 'px';
 
-		for (var i = 0; i < totalThumbnails; i++) {
+		for (var i = 0; i < totalGalleryImages; i++) {
 
-			var thumbnailWrapper = document.createElement('div');
-			var thumbnailInstance = document.createElement('img');
+			var imageWrapper = document.createElement('div');
+			var image = document.createElement('img');
 
-			thumbnailInstance.src = sourceArray[i];
-			thumbnailInstance.classList.add('thumbnail');
+			image.src = galleryImages[i];
+			image.classList.add('image');
 			
-			thumbnailWrapper.style.width = thumbnailWrapperWidth;
-			thumbnailWrapper.classList.add('thumbnail-wrapper');
-			thumbnailWrapper.appendChild(thumbnailInstance);
-			imageContainer.appendChild(thumbnailWrapper);
+			imageWrapper.style.width = imageWrapperWidth;
+			imageWrapper.classList.add('image-wrapper');
+			imageWrapper.appendChild(image);
+			imageContainer.appendChild(imageWrapper);
 		}
 	}
 
 	function updateMainImage (eventType, eventTarget) {
 
-		var imageWrapper = document.querySelectorAll('.thumbnail-wrapper');
+		var imageWrapper = document.querySelectorAll('.image-wrapper');
 		var imageWrappersArray = [];
 
 		for (var x = 0; x < imageWrapper.length; x++) {
@@ -106,7 +115,7 @@
 
 				imageWrapper[currentIndex].setAttribute('style', 'width: 0;');
 			
-				imageWrapper[next].style.width = thumbnailWrapperWidth;
+				imageWrapper[next].style.width = imageWrapperWidth;
 			}
 		}
 
@@ -117,7 +126,7 @@
 				next = currentIndex + 1;
 
 				imageWrapper[currentIndex].setAttribute('style', 'width: 0;');
-				imageWrapper[next].style.width = thumbnailWrapperWidth;
+				imageWrapper[next].style.width = imageWrapperWidth;
 			}
 		}
 	}
@@ -127,6 +136,10 @@
 	function updateView (eventType) {
 		
 		var pageSectionHeight = parseInt(pageSections[0].style.height);
+
+		console.log('appBodyTop:', appBodyTop);
+		console.log('appBodyHeight:', appBodyHeight);
+		console.log('pageSectionHeight:', pageSectionHeight);
 
 		if (appBodyTop <= 0) {
 
