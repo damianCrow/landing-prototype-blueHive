@@ -21,18 +21,20 @@
 	var imageContainer = document.getElementById('image-wrapper');
 	var galleryWidth = parseInt(window.getComputedStyle(gallery[0], null).getPropertyValue('width'));
 	var thumbnailWrapperWidth = galleryWidth + 'px';
+	var totalThumbnails = thumbnails.length;
 
 	function displayAllThumbnails (sourceArray) {
 
-		imageContainer.style.width = galleryWidth * sourceArray.length + 'px';
-		
-		for (var i = 0; i < sourceArray.length; i++) {
+		imageContainer.style.width = galleryWidth * totalThumbnails + 'px';
+
+		for (var i = 0; i < totalThumbnails; i++) {
 
 			var thumbnailWrapper = document.createElement('div');
 			var thumbnailInstance = document.createElement('img');
 
 			thumbnailInstance.src = sourceArray[i];
 			thumbnailInstance.classList.add('thumbnail');
+			
 			thumbnailWrapper.style.width = thumbnailWrapperWidth;
 			thumbnailWrapper.classList.add('thumbnail-wrapper');
 			thumbnailWrapper.appendChild(thumbnailInstance);
