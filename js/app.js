@@ -15,42 +15,56 @@
 		'images/08.jpg'
 	];
 
-	var appBody = document.getElementById('app-wrapper');
-	var appBodyHeight = parseInt(window.getComputedStyle(appBody, null).getPropertyValue('height'));
-	var appBodyTop = 0;
-	var pageSections = document.querySelectorAll('.section');
-	var gallery = document.querySelectorAll('.gallery');
-	var imageContainer = document.getElementById('image-wrapper');
-	var galleryWidth = parseInt(window.getComputedStyle(gallery[0], null).getPropertyValue('width'));
-	var thumbnailWrapperWidth = galleryWidth + 'px';
-	var totalThumbnails = thumbnails.length;
-	
-	var mcGallery = new Hammer(imageContainer);
-	var mcSections = new Hammer(appBody);
+	var appBody;
+	var appBodyHeight;
+	var appBodyTop;
+	var pageSections;
+	var gallery;
+	var imageContainer;
+	var galleryWidth;
+	var thumbnailWrapperWidth;
+	var totalThumbnails;
+	var mcGallery;
+	var mcSections;
 
-	displayAllThumbnails(thumbnails);
+	function init () {
 
-	for (var i = 0; i < pageSections.length; i++) {
+		appBody = document.getElementById('app-wrapper');
+		appBodyHeight = parseInt(window.getComputedStyle(appBody, null).getPropertyValue('height'));
+		appBodyTop = 0;
+		pageSections = document.querySelectorAll('.section');
+		gallery = document.querySelectorAll('.gallery');
+		imageContainer = document.getElementById('image-wrapper');
+		galleryWidth = parseInt(window.getComputedStyle(gallery[0], null).getPropertyValue('width'));
+		thumbnailWrapperWidth = galleryWidth + 'px';
+		totalThumbnails = thumbnails.length;
+		mcGallery = new Hammer(imageContainer);
+		mcSections = new Hammer(appBody);
+		
+		displayAllThumbnails(thumbnails);
 
-		pageSections[i].style.height = window.innerHeight + 'px';
+		for (var i = 0; i < pageSections.length; i++) {
+
+			pageSections[i].style.height = window.innerHeight + 'px';
+		}
+
+		document.body.addEventListener('touchstart', function (e) { 
+			
+			e.preventDefault(); 
+		});
+
+		mcGallery.on('panleft panright', function (evnt) {
+
+			updateMainImage(evnt.type, evnt.target);
+		});
+
+		mcSections.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
+
+		mcSections.on('swipeup swipedown', function (evnt) {
+			
+			updateView(evnt.type);
+		});
 	}
-
-	document.body.addEventListener('touchstart', function (e) { 
-		
-		e.preventDefault(); 
-	});
-
-	mcGallery.on('panleft panright', function (evnt) {
-
-		updateMainImage(evnt.type, evnt.target);
-	});
-
-	mcSections.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
-
-	mcSections.on('swipeup swipedown', function (evnt) {
-		
-		updateView(evnt.type);
-	});
 
 	function displayAllThumbnails (sourceArray) {
 
@@ -129,5 +143,7 @@
 			}
 		}
 	}
+
+	document.addEventListener('DOMContentLoaded', init);
 
 })();
