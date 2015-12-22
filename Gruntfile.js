@@ -2,11 +2,11 @@ module.exports = function(grunt) {
 
     "use strict";
 
-    grunt.loadNpmTasks("grunt-contrib-sass");
+    grunt.loadNpmTasks("grunt-sass");
     grunt.loadNpmTasks("grunt-contrib-uglify");
     grunt.loadNpmTasks("grunt-contrib-connect");
     grunt.loadNpmTasks("grunt-contrib-watch");
-    grunt.loadNpmTasks('grunt-autoprefixer');
+    grunt.loadNpmTasks("grunt-autoprefixer");
 
     grunt.initConfig({
 
@@ -33,7 +33,7 @@ module.exports = function(grunt) {
                 },
 
                 files: {
-                    "app.min.js" : ["js/app.js"]
+                    "app.min.js" : ["js/hammer.js", "js/app.js"]
                 }
             }
         },
@@ -49,11 +49,11 @@ module.exports = function(grunt) {
 
         autoprefixer: {
           options: {
-            browsers: ['last 8 versions']
+            browsers: ["last 8 versions"]
           },
           dist: { // Target
             files: {
-              'styles.min.css': 'scss/styles.scss'
+              "styles.min.css": "scss/styles.scss"
             }
           }
         },
@@ -81,4 +81,5 @@ module.exports = function(grunt) {
     });
 
     grunt.registerTask("run", ["sass:dev", "uglify:dev", "connect:server", "watch"]);
+    grunt.registerTask("default", "run");
 };
