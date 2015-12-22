@@ -24,9 +24,9 @@
 
 	function displayAllThumbnails (sourceArray) {
 
+		imageContainer.style.width = galleryWidth * sourceArray.length + 'px';
+		
 		for (var i = 0; i < sourceArray.length; i++) {
-
-			imageContainer.style.width = galleryWidth * sourceArray.length + 'px';
 
 			var thumbnailWrapper = document.createElement('div');
 			var thumbnailInstance = document.createElement('img');
