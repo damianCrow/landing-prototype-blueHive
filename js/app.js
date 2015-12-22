@@ -16,12 +16,41 @@
 	];
 
 	var appBody = document.getElementById('app-wrapper');
+	var appBodyHeight = parseInt(window.getComputedStyle(appBody, null).getPropertyValue('height'));
+	var appBodyTop = 0;
 	var pageSections = document.querySelectorAll('.section');
 	var gallery = document.querySelectorAll('.gallery');
 	var imageContainer = document.getElementById('image-wrapper');
 	var galleryWidth = parseInt(window.getComputedStyle(gallery[0], null).getPropertyValue('width'));
 	var thumbnailWrapperWidth = galleryWidth + 'px';
 	var totalThumbnails = thumbnails.length;
+	
+	var mcGallery = new Hammer(imageContainer);
+	var mcSections = new Hammer(appBody);
+
+	displayAllThumbnails(thumbnails);
+
+	for (var i = 0; i < pageSections.length; i++) {
+
+		pageSections[i].style.height = window.innerHeight + 'px';
+	}
+
+	document.body.addEventListener('touchstart', function (e) { 
+		
+		e.preventDefault(); 
+	});
+
+	mcGallery.on('panleft panright', function (evnt) {
+
+		updateMainImage(evnt.type, evnt.target);
+	});
+
+	mcSections.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
+
+	mcSections.on('swipeup swipedown', function (evnt) {
+		
+		updateView(evnt.type);
+	});
 
 	function displayAllThumbnails (sourceArray) {
 
@@ -41,8 +70,6 @@
 			imageContainer.appendChild(thumbnailWrapper);
 		}
 	}
-
-	displayAllThumbnails(thumbnails);
 
 	function updateMainImage (eventType, eventTarget) {
 
@@ -83,20 +110,6 @@
 
 	// VIEW CHANGE CODE \\
 
-	document.body.addEventListener('touchstart', function (e) { 
-		
-		e.preventDefault(); 
-	});
-
-	for (var i = 0; i < pageSections.length; i++) {
-
-		pageSections[i].style.height = window.innerHeight + 'px';
-	}
-
-	var appBodyHeight = parseInt(window.getComputedStyle(appBody, null).getPropertyValue('height'));
-
-	var appBodyTop = 0;
-
 	function updateView (eventType) {
 		
 		var pageSectionHeight = parseInt(pageSections[0].style.height);
@@ -116,21 +129,5 @@
 			}
 		}
 	}
-
-	var mcGallery = new Hammer(imageContainer);
-
-	mcGallery.on('panleft panright', function (evnt) {
-
-		updateMainImage(evnt.type, evnt.target);
-	});
-
-	var mcSections = new Hammer(appBody);
-
-	mcSections.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
-
-	mcSections.on('swipeup swipedown', function (evnt) {
-		
-		updateView(evnt.type);
-	});
 
 })();
