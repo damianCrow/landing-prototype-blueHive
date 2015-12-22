@@ -14,7 +14,9 @@ module.exports = function(grunt) {
 
             dev: {
                 options: {
-                    style: "compressed"
+                    outputStyle : "nested",
+                    precision : 10,
+                    sourceMap : true
                 },
 
                 files : {
@@ -29,7 +31,8 @@ module.exports = function(grunt) {
                 options: {
                     compress: true,
                     mangle: true,
-                    preserveComments: false
+                    preserveComments: false,
+                    sourceMap: true
                 },
 
                 files: {
@@ -53,7 +56,7 @@ module.exports = function(grunt) {
           },
           dist: { // Target
             files: {
-              "styles.min.css": "scss/styles.scss"
+              "styles.min.css": "styles.min.css"
             }
           }
         },
