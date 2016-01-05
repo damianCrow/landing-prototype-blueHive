@@ -3,22 +3,32 @@
 // IMAGE GALLERY CODE \\
 
 var thumbnails = [ 
-'images/_MG_2618b-resized.jpg', 
-'images/Detail_08bisNew-resized.jpg', 
-'images/22_aNew-resized.jpg', 
-'images/_MG_3700b-resized.jpg', 
-'images/33New-resized.jpg', 
-'images/_MG_3081b-resized.jpg', 
-'images/_MG_3517-resized.jpg', 
-'images/_MG_2746-resized.jpg'
+  'images/_MG_2618b-resized.jpg', 
+  'images/Detail_08bisNew-resized.jpg', 
+  'images/22_aNew-resized.jpg', 
+  'images/_MG_3700b-resized.jpg', 
+  'images/33New-resized.jpg', 
+  'images/_MG_3081b-resized.jpg', 
+  'images/_MG_3517-resized.jpg', 
+  'images/_MG_2746-resized.jpg'
+];
+
+var videoStillsSrc = [
+  'images/Scotland-videoScreenshot.png',
+  'images/Lommel-videoScreenshot.png',
+  'images/Cologne-videoScreenshot.png',
+  'images/France-videoScreenshot.png'
 ];
 
 var appBody = document.getElementById('app-wrapper');
 var pageSections = document.querySelectorAll('.section');
 var gallery = document.querySelectorAll('.gallery');
 var imageContainer = document.getElementById('image-wrapper');
+var videoContainer = document.getElementById('video-wrapper');
 var galleryWidth = parseInt(window.getComputedStyle(gallery[0], null).getPropertyValue('width'));
 var thumbnailWrapperWidth = galleryWidth + 'px';
+
+videoContainer.style.width = galleryWidth * 4 + 'px';
 
 function displayAllThumbnails(sourceArray) {
 
@@ -40,17 +50,17 @@ function displayAllThumbnails(sourceArray) {
 
 displayAllThumbnails(thumbnails);
 
-function updateMainImage(eventType, eventTarget) {
+function updateViewContent(eventType, eventTarget, targetElement) {
 
-	var imageWrapper = document.querySelectorAll('.thumbnail-wrapper');
-  var imageWrappersArray = [];
+	var wrappers = document.querySelectorAll(targetElement);
+  var wrappersArray = [];
 
-  for(var x = 0; x < imageWrapper.length; x++) {
+  for(var x = 0; x < wrappers.length; x++) {
 
-    imageWrappersArray.push(imageWrapper[x]);
+    wrappersArray.push(wrappers[x]);
   }
 
-	var currentIndex = imageWrappersArray.indexOf(eventTarget.parentNode);
+	var currentIndex = wrappersArray.indexOf(eventTarget);
 	var next;
   
 	if(eventType === 'panright') {
@@ -59,23 +69,96 @@ function updateMainImage(eventType, eventTarget) {
 
 			next = currentIndex - 1;
 
-			imageWrapper[currentIndex].setAttribute('style', 'width: 0;');
+			wrappersArray[currentIndex].setAttribute('style', 'width: 0;');
       
-			imageWrapper[next].style.width = thumbnailWrapperWidth;
+			wrappersArray[next].style.width = thumbnailWrapperWidth;
 		}
 	}
 
 	if(eventType === 'panleft') {
 
-		if (currentIndex < imageWrapper.length -1 && currentIndex >= 0) {
+		if (currentIndex < wrappersArray.length -1 && currentIndex >= 0) {
 
 			next = currentIndex + 1;
 
-	    imageWrapper[currentIndex].setAttribute('style', 'width: 0;');
+	    wrappersArray[currentIndex].setAttribute('style', 'width: 0;');
   
-	    imageWrapper[next].style.width = thumbnailWrapperWidth;
+	    wrappersArray[next].style.width = thumbnailWrapperWidth;
 		}
 	}
+}
+
+// VIDEO GALLERY CODE \\
+
+var videoStills = [];
+var playerWrapper = document.getElementById('iframe-wrapper');
+playerWrapper.style.display = 'none';
+
+function displayVideostills() {
+
+  for(var i = 0; i < videoStillsSrc.length; i++) {
+
+    var still = document.createElement('img');
+    still.src = videoStillsSrc[i];
+    still.classList.add('video-still');
+    videoContainer.appendChild(still);
+    videoStills.push(still);
+  }
+}
+
+displayVideostills();
+
+var tag = document.createElement('script');
+tag.src = "https://www.youtube.com/iframe_api";
+var firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+var playerPlaceholder = document.getElementById('player');
+var player;
+
+window.onYouTubeIframeAPIReady = function() {
+  player = new YT.Player(playerPlaceholder, {
+    events: {
+      'onReady': onPlayerReady,
+      'onStateChange': onPlayerStateChange
+    }
+  });
+}
+
+function onPlayerReady(event) {
+  var videosArray = [
+    '9_4kgjTyl4g',
+    'cC5KtODInB4', 
+    'ZxoVapWVuXs', 
+    'n3nXe3-IXZM'
+  ];
+
+  player.cuePlaylist(videosArray);
+}
+
+function onPlayerStateChange(event){
+
+  if(event.data == YT.PlayerState.PLAYING) {
+    playerWrapper.style.display = 'inline-block';
+  }
+
+  if(event.data == YT.PlayerState.ENDED) {
+    playerWrapper.style.display = 'none';
+    player.stopVideo();
+  }
+
+  if(event.data == YT.PlayerState.PAUSED) {
+
+    setTimeout(function(){
+      playerWrapper.style.display = 'none';
+      player.stopVideo();
+    }, 10000)
+  }
+
+}
+
+function playVideo(videoArrayIndex) {
+  player.playVideoAt(videoArrayIndex);
 }
 
 // VIEW CHANGE CODE \\
@@ -113,19 +196,36 @@ function updateView(eventType) {
   }
 }
 
+// HAMMER INSTANCES CODE \\
+
 var mcGallery = new Hammer(imageContainer);
 
 mcGallery.on('panleft panright', function(evnt) {
 
- updateMainImage(evnt.type, evnt.target);
+ updateViewContent(evnt.type, evnt.target.parentNode, '.thumbnail-wrapper');
 
 });
+
+var mcVideoGallery = new Hammer(videoContainer);
+
+mcVideoGallery.on('panleft panright', function(evnt) {
+
+ updateViewContent(evnt.type, evnt.target, '.video-still');
+ 
+});
+
+mcVideoGallery.on('tap', function(evnt) {
+
+ playVideo(videoStills.indexOf(evnt.target));
+
+});
+
 
 var mcSections = new Hammer(appBody);
 
 mcSections.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
 
-mcSections.on("swipeup swipedown", function(evnt) {
+mcSections.on('swipeup swipedown', function(evnt) {
     
   updateView(evnt.type);
 
