@@ -1,5 +1,20 @@
 (function(){
 
+// DEVICE ORIENTATION & INTRO VIDEO CODE \\
+
+var introVideo = document.getElementById('intro-page-video');
+
+window.addEventListener('deviceorientation', function(event) {
+
+  if(event.gamma > 0) {
+    introVideo.currentTime += 0.1;
+  }
+
+  if(event.gamma < 0) {
+    introVideo.currentTime -= 0.1;
+  }
+});
+
 // IMAGE GALLERY CODE \\
 
 var thumbnails = [ 
@@ -114,6 +129,8 @@ var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
 var playerPlaceholder = document.getElementById('player');
+var playerCloseButton = document.getElementById('player-close-button');
+var playButton = document.getElementById('play-button');
 var player;
 
 window.onYouTubeIframeAPIReady = function() {
@@ -136,6 +153,11 @@ function onPlayerReady(event) {
   player.cuePlaylist(videosArray);
 }
 
+function closePlayer() {
+  playerWrapper.style.display = 'none';
+  player.stopVideo();
+}
+
 function onPlayerStateChange(event){
 
   if(event.data == YT.PlayerState.PLAYING) {
@@ -143,22 +165,29 @@ function onPlayerStateChange(event){
   }
 
   if(event.data == YT.PlayerState.ENDED) {
-    playerWrapper.style.display = 'none';
-    player.stopVideo();
+    closePlayer();
   }
 
   if(event.data == YT.PlayerState.PAUSED) {
-
-    setTimeout(function(){
-      playerWrapper.style.display = 'none';
-      player.stopVideo();
-    }, 10000)
+    playerCloseButton.style.opacity = 0.4;
   }
-
 }
 
 function playVideo(videoArrayIndex) {
   player.playVideoAt(videoArrayIndex);
+}
+ 
+function playButtonTapIndication() {
+
+  var playButtonWidth = window.getComputedStyle(playButton, null).getPropertyValue('width');
+
+  if(playButtonWidth === '75px') {
+    playButton.setAttribute('style','width: 50px; opacity: 0;');
+  }
+
+  if(playButtonWidth === '50px') {
+    playButton.setAttribute('style','width: 75px; opacity: 1;');
+  }
 }
 
 // VIEW CHANGE CODE \\
@@ -214,12 +243,22 @@ mcVideoGallery.on('panleft panright', function(evnt) {
  
 });
 
-mcVideoGallery.on('tap', function(evnt) {
+mcVideoGallery.on('tap press', function(evnt) {
 
  playVideo(videoStills.indexOf(evnt.target));
 
+ playButtonTapIndication();
+
 });
 
+var mcPlayerClose = new Hammer(playerCloseButton);
+
+mcPlayerClose.on('tap press', function(evnt) {
+
+  closePlayer();
+  playButtonTapIndication();
+
+});
 
 var mcSections = new Hammer(appBody);
 
@@ -230,5 +269,10 @@ mcSections.on('swipeup swipedown', function(evnt) {
   updateView(evnt.type);
 
 });
+
+window.onload = function() {
+  introVideo.currentTime = (introVideo.duration / 2);
+  appBody.style.visibility = 'visible';
+}
 
 })();

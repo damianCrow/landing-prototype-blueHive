@@ -1620,7 +1620,7 @@ inherit(PanRecognizer, AttrRecognizer, {
      */
     defaults: {
         event: 'pan',
-        threshold: 40,
+        threshold: 50,
         pointers: 1,
         direction: DIRECTION_ALL
     },
@@ -1739,7 +1739,7 @@ inherit(PressRecognizer, Recognizer, {
     defaults: {
         event: 'press',
         pointers: 1,
-        time: 500, // minimal time of the pointer to be pressed
+        time: 300, // minimal time of the pointer to be pressed
         threshold: 5 // a minimal movement is ok, but keep it low
     },
 
@@ -1837,7 +1837,7 @@ inherit(SwipeRecognizer, AttrRecognizer, {
      */
     defaults: {
         event: 'swipe',
-        threshold: 7,
+        threshold: 25,
         velocity: 0.4,
         direction: DIRECTION_HORIZONTAL | DIRECTION_VERTICAL,
         pointers: 1
@@ -1908,8 +1908,8 @@ inherit(TapRecognizer, Recognizer, {
         pointers: 1,
         taps: 1,
         interval: 300, // max time between the multi-tap taps
-        time: 250, // max time of the pointer to be down (like finger on the screen)
-        threshold: 1, // a minimal movement is ok, but keep it low
+        time: 300, // max time of the pointer to be down (like finger on the screen)
+        threshold: 5, // a minimal movement is ok, but keep it low
         posThreshold: 10 // a multi-tap can be a bit off the initial position
     },
 

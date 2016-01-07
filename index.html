@@ -8,6 +8,12 @@
 	
 	<body id="app-wrapper"> 
 
+		<div class="intro-page section">
+
+			<video id="intro-page-video" type="video/mp4" src="videos/intro_london.mp4"></video>
+
+		</div>
+
 		<div class="gallery section">
 
 			<div id="image-wrapper" class="main-image-container">
@@ -18,11 +24,13 @@
 		<div class="video-gallery section">
 			<div id="video-wrapper" class="main-video-container">
 
-			<img class="video-still-play-button" src="images/play-button.png">
+			<img id="play-button" class="video-still-play-button" src="images/play-button.png">
 
 				<div id="iframe-wrapper">
 
 					<div id="player" class="video"></div>
+
+					<img id="player-close-button" src="images/close-button.png">
 
 				</div>
 
