@@ -180,6 +180,9 @@ var player;
 
 window.onYouTubeIframeAPIReady = function() {
   player = new YT.Player(playerPlaceholder, {
+    playerVars: {
+      'fs': 0 
+    },
     events: {
       'onReady': onPlayerReady,
       'onStateChange': onPlayerStateChange
