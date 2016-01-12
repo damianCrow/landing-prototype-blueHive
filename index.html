@@ -8,23 +8,31 @@
 	
 	<body id="app-wrapper"> 
 
-		<div class="intro-page section">
+		<img id="header-logo" src="images/lockup.png">
 
-			<video id="intro-page-video" type="video/mp4" src="videos/intro_london.mp4"></video>
-
-		</div>
+		<div id="intro-page" class="section"></div>
 
 		<div class="gallery section">
 
-			<div id="image-wrapper" class="main-image-container">
-			</div>
+			<p class="user-instruction"> 
+				<span class="left-arrow"><</span>
+				<span class="right-arrow">></span>
+			</p>
+
+			<div id="image-wrapper" class="main-image-container"></div>
 
 		</div>
 
 		<div class="video-gallery section">
+
+			<p class="user-instruction"> 
+				<span class="left-arrow"><</span>
+				<span class="right-arrow">></span>
+			</p>
+
 			<div id="video-wrapper" class="main-video-container">
 
-			<img id="play-button" class="video-still-play-button" src="images/play-button.png">
+				<img id="play-button" class="video-still-play-button" src="images/play-button.png">
 
 				<div id="iframe-wrapper">
 
@@ -37,9 +45,9 @@
 			</div>
 		</div>
 
-		<div class="configurator section">
+		<div id="configurator__wrapper" class="section">
 
-			<div></div>
+			<iframe id="configurator" src="http://configurator.dev.honeybunker.com/stage/EN-EU/"></iframe>
 			
 		</div>
 
