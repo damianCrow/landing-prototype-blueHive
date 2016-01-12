@@ -1620,7 +1620,7 @@ inherit(PanRecognizer, AttrRecognizer, {
      */
     defaults: {
         event: 'pan',
-        threshold: 50,
+        threshold: 60,
         pointers: 1,
         direction: DIRECTION_ALL
     },
@@ -1837,7 +1837,7 @@ inherit(SwipeRecognizer, AttrRecognizer, {
      */
     defaults: {
         event: 'swipe',
-        threshold: 25,
+        threshold: 60,
         velocity: 0.4,
         direction: DIRECTION_HORIZONTAL | DIRECTION_VERTICAL,
         pointers: 1

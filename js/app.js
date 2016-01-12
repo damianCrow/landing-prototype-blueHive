@@ -144,8 +144,8 @@ function hideSwipeArrows(arrow) {
 // VIDEO GALLERY CODE \\
 
 var videoStillsSrc = [
-  'images/Scotland-videoScreenshot.png',
   'images/Lommel-videoScreenshot.png',
+  'images/Scotland-videoScreenshot.png',
   'images/Cologne-videoScreenshot.png',
   'images/France-videoScreenshot.png'
 ];
@@ -189,10 +189,10 @@ window.onYouTubeIframeAPIReady = function() {
 
 function onPlayerReady(event) {
   var videosArray = [
-    '9_4kgjTyl4g',
     'cC5KtODInB4', 
     'ZxoVapWVuXs', 
-    'n3nXe3-IXZM'
+    'n3nXe3-IXZM',
+    '9_4kgjTyl4g'
   ];
 
   player.cuePlaylist(videosArray);
