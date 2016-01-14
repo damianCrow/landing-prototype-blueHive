@@ -7,15 +7,15 @@ galleryWidth = parseInt(window.getComputedStyle(gallery[0], null).getPropertyVal
 // DEVICE ORIENTATION & INTRO VIDEO CODE \\
 
 var introArray = [
-  'images/intro-images/header_0008_Layer 7.jpg',
-  'images/intro-images/header_0007_Layer 8.jpg',
-  'images/intro-images/header_0006_Layer 9.jpg',
-  'images/intro-images/header_0005_Layer 10.jpg',
-  'images/intro-images/header_0004_Layer 11.jpg',
-  'images/intro-images/header_0003_Layer 12.jpg',
-  'images/intro-images/header_0002_Layer 13.jpg',
-  'images/intro-images/header_0001_Layer 14.jpg',
-  'images/intro-images/header_0000_Layer 15.jpg'
+  'images/intro-images/header_0007_Layer-8.png',
+  'images/intro-images/header_0008_Layer-7.png',
+  'images/intro-images/header_0006_Layer-9.png',
+  'images/intro-images/header_0005_Layer-10.png',
+  'images/intro-images/header_0004_Layer-11.png',
+  'images/intro-images/header_0003_Layer-12.png',
+  'images/intro-images/header_0002_Layer-13.png',
+  'images/intro-images/header_0001_Layer-14.png',
+  'images/intro-images/header_0000_Layer-15.png'
 ];
 
 var introPage = document.getElementById('intro-page');

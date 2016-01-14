@@ -3,16 +3,18 @@
 	<head>
 		<meta charset="UTF-8" name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
 
-		<link href="styles.min.css" rel="stylesheet" type="text/css">
+		<link href="styles.min.css" rel="stylesheet" type="text/css"> 
 	</head>
 	
-	<body id="app-wrapper"> 
+	<body id="app-wrapper" data-hijacking="on" data-animation="parallax"> 
 
 		<img id="header-logo" src="images/lockup.png">
 
-		<div id="intro-page" class="section"></div>
+		<section id="intro-page" class="section"></section>
 
-		<div class="gallery section">
+		<section id="configurator-cta" class="section"></section>
+
+		<section class="gallery section">
 
 			<p class="user-instruction"> 
 				<span class="left-arrow"><</span>
@@ -21,9 +23,9 @@
 
 			<div id="image-wrapper" class="main-image-container"></div>
 
-		</div>
+		</section>
 
-		<div class="video-gallery section">
+		<section class="video-gallery section">
 
 			<p class="user-instruction"> 
 				<span class="left-arrow"><</span>
@@ -43,13 +45,11 @@
 				</div>
 
 			</div>
-		</div>
+		</section>
 
-		<div id="configurator__wrapper" class="section">
+		<section id="configurator" class="section"></section>
 
-			<iframe id="configurator" src="http://configurator.dev.honeybunker.com/stage/EN-EU/"></iframe>
-			
-		</div>
+		<section id="contact-info" class="section"></section>
 
 		<script type="text/javascript" src="app.min.js"></script>
 

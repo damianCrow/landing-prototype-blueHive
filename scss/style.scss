@@ -56,15 +56,23 @@ html {
 	overflow: hidden;
 }
 
+.section {
+	background-size: 100%;
+	background-repeat: no-repeat;
+}
+
 #configurator {
 	width: 100%;
-	height: 100%;
-	position: absolute;
+	background-image: url('images/customizer-screenshot.png');
 }
 
 #intro-page-video {
 	height: 100%;
 	overflow: hidden;
+}
+
+#configurator-cta {
+	background-image: url('images/configDirection.png');
 }
 
 .gallery {
@@ -106,10 +114,10 @@ html {
 
 		&-play-button {
 			width: 75px;
-			top: 50%;
+			top: 40%;
 			transform: translateY(-50%);
 			position: absolute;
-			left: 11%;
+			left: 10%;
 			pointer-events: none;
 			transition: all 0.3s;
 		}
@@ -133,6 +141,6 @@ html {
 	overflow: hidden;
 }
 
-.configurator {
-	background-color: green;
+#contact-info {
+	background-image: url('images/KMI.png');
 }

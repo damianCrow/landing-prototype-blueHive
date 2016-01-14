@@ -18,7 +18,7 @@ module.exports = function(grunt) {
                 },
 
                 files : {
-                    "styles.min.css": "scss/styles.scss"
+                    "styles.min.css": "scss/style.scss"
                 }
             }
         },
@@ -33,7 +33,10 @@ module.exports = function(grunt) {
                 },
 
                 files: {
-                    "app.min.js" : ["js/hammer.js", "js/app.js"]
+                    "app.min.js" : [
+                    "js/hammer.js",
+                    "js/app.js"
+                    ]
                 }
             }
         },
@@ -53,7 +56,7 @@ module.exports = function(grunt) {
           },
           dist: { // Target
             files: {
-              "styles.min.css": "scss/styles.scss"
+              "styles.min.css": "scss/style.scss"
             }
           }
         },
@@ -70,7 +73,7 @@ module.exports = function(grunt) {
 
             js: {
                 files: ["js/*.js"],
-                tasks: ["uglify:dev"]
+                tasks: ["uglify:dev", "autoprefixer"]
             },
 
             scss: {
