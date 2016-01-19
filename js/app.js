@@ -18,44 +18,34 @@ var introArray = [
   'images/intro-images/header_0000_Layer-15.png'
 ];
 
-var introPage = document.getElementById('intro-page');
+var introPageBackgroundWrapper = document.getElementById('intro-page-background-wrapper');
+var introPageBackgroundWrapperSrcIndex = 4;
 
 function displayArray(container) {
 
-  container.style.width = galleryWidth * introArray.length + 'px';
-
-  for(var i = 0; i < introArray.length; i++) {
-
-    var thumbnailInstance = document.createElement('img');
-    thumbnailInstance.src = introArray[i];
-    thumbnailInstance.style.height = '100%';
-    thumbnailInstance.style.width = 100 / introArray.length + '%';
-    thumbnailInstance.style.float = 'left';
-    container.appendChild(thumbnailInstance);
-  }
+  container.style.width = galleryWidth;
+  container.style.backgroundImage = 'url('+ introArray[introPageBackgroundWrapperSrcIndex] +')';
 }
 
-displayArray(introPage);
+displayArray(introPageBackgroundWrapper);
 
 window.addEventListener('deviceorientation', function(event) {
 
-var introPagePositionX = parseInt(introPage.style.left);
+  if(event.gamma > 0 && introPageBackgroundWrapperSrcIndex <= introArray.length - 1) {
 
-  if(event.gamma > 0 && introPagePositionX > -800) {
-
-    if(parseInt(event.gamma) % 2 === 0) {
-
-      introPagePositionX -= 100;
-      introPage.style.left = introPagePositionX + '%';
+    if(parseInt(event.gamma) % 2 === 0 && introPageBackgroundWrapperSrcIndex > 0) {
+      
+      introPageBackgroundWrapperSrcIndex --;
+      introPageBackgroundWrapper.style.backgroundImage = 'url('+ introArray[introPageBackgroundWrapperSrcIndex] +')';
     }
   }
 
-  if(event.gamma < 0 && introPagePositionX < 0) {
+  if(event.gamma < 0 && introPageBackgroundWrapperSrcIndex >= 0) {
     
-    if(parseInt(event.gamma) % -2 === 0) {
-
-     introPagePositionX += 100;
-     introPage.style.left = introPagePositionX + '%';
+    if(parseInt(event.gamma) % -2 === 0 && introPageBackgroundWrapperSrcIndex < introArray.length - 1) {
+      
+     introPageBackgroundWrapperSrcIndex ++;
+     introPageBackgroundWrapper.style.backgroundImage = 'url('+ introArray[introPageBackgroundWrapperSrcIndex] +')';
     }
   }
 });
@@ -245,8 +235,11 @@ document.body.addEventListener('touchstart', function(e) {
   e.preventDefault(); 
 });
 
+var pageSectionsArray = [];
+
 for (var i = 0; i < pageSections.length; i++) {
 
+  pageSectionsArray.push(pageSections[i]);
   pageSections[i].style.height = window.innerHeight + 'px';
 
 }
@@ -272,6 +265,50 @@ function updateView(eventType) {
       appBody.style.top = appBodyTop + 'px';
     }
   }
+}
+
+// SECTION ANIMATION CODE \\
+
+var sectionAnimationComplete = true;
+
+function animateSection(eventTarget, eventType) {
+
+  sectionAnimationComplete = false;
+
+  var currentSectionIndex;
+
+  currentSectionIndex = pageSectionsArray.indexOf(eventTarget.closest('.section'));
+  
+  if(currentSectionIndex >= 0 && currentSectionIndex < pageSectionsArray.length -1) {
+
+    if(eventType === 'swipeup') {
+      pageSectionsArray[currentSectionIndex].style.transition = 'transform 0.75s ease-in';
+      pageSectionsArray[currentSectionIndex].classList.add('animate-up');
+
+      setTimeout(function() {
+        pageSectionsArray[currentSectionIndex].style.transition = 'transform 0s';
+        pageSectionsArray[currentSectionIndex].classList.remove('animate-up');
+      }, 800)
+    }
+  }
+
+  if(currentSectionIndex > 0 && currentSectionIndex < pageSectionsArray.length) {
+
+    if(eventType === 'swipedown') {
+      pageSectionsArray[currentSectionIndex].style.transition = 'transform 0.75s ease-in';
+      pageSectionsArray[currentSectionIndex].classList.add('animate-down');
+      pageSectionsArray[currentSectionIndex].style.zIndex = '-10';
+
+      setTimeout(function() {
+        pageSectionsArray[currentSectionIndex].style.zIndex = '1';
+        pageSectionsArray[currentSectionIndex].style.transition = 'transform 0s';
+        pageSectionsArray[currentSectionIndex].classList.remove('animate-down');
+      }, 800)
+    }
+  }
+  setTimeout(function() {
+    sectionAnimationComplete = true; 
+  }, 800)
 }
 
 // HAMMER INSTANCES CODE \\
@@ -317,13 +354,15 @@ mcSections.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
 
 mcSections.on('swipeup swipedown', function(evnt) {
     
-  updateView(evnt.type);
+  if(sectionAnimationComplete === true) {
 
+    updateView(evnt.type);
+    animateSection(evnt.target, evnt.type);
+  }
 });
 
 window.onload = function() {
 
-  introPage.style.left = '-400%';
   appBody.style.visibility = 'visible';
   headerLogo.setAttribute('style','opacity: 1; top: 50px');
 }

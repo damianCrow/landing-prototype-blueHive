@@ -5,12 +5,10 @@ html {
 #app-wrapper {
 	background-color: #000000;
 	top: 0;
-	transition: top 0.5s ease-in-out;
+	transition: top 0.75s ease-in-out;
 	visibility: hidden;
-}
-
-.logo-wrapper {
-	
+	transform: translate3d(0px, 0px, 0px);
+	backface-visibility: hidden;
 }
 
 .user-instruction {
@@ -21,20 +19,29 @@ html {
   z-index: 2;
   top: 40%;
   transition: opacity 1s;
+}
 
-  .left-arrow, .right-arrow {
-  	position: absolute;
-  	font-size: 60px
-  }
+.left-arrow, .right-arrow {
+	position: absolute;
+	font-size: 60px
+}
 
-  .left-arrow {
-  	left: 5px;
-  }
+.left-arrow {
+	left: 5px;
+}
 
-  .right-arrow {
-  	right: 5px;
-  	display: none;
-  }
+.right-arrow {
+	right: 5px;
+	display: none;
+}
+
+#intro-page-background-wrapper {
+	width: 100%;
+	height: 100%;
+	transition: all 0.01s;
+	background-repeat: no-repeat;
+	background-size: 100%;
+	animation-timing-function: step-end;
 }
 
 #header-logo {
@@ -42,7 +49,6 @@ html {
   left: 50%;
   transform: translateX(-50%);
   z-index: 1;
-  width: 77%;
   opacity: 0;
   top: 70px;
   transition: all 2s ease-in-out;
@@ -56,9 +62,22 @@ html {
 	overflow: hidden;
 }
 
+.animate-up {
+	backface-visibility: hidden;
+	transform: translate3d(0px, 0px, 0px);
+	transform: scaleX(0.8) rotateX(50deg) translateY(100%); 
+}
+
+.animate-down {
+	backface-visibility: hidden;
+	transform: translate3d(0px, 0px, 0px);
+	transform: scaleX(0.8) rotateX(-50deg) translateY(-100%); 
+}
+
 .section {
 	background-size: 100%;
 	background-repeat: no-repeat;
+	z-index: 1;
 }
 
 #configurator {
@@ -66,9 +85,9 @@ html {
 	background-image: url('images/customizer-screenshot.png');
 }
 
-#intro-page-video {
-	height: 100%;
-	overflow: hidden;
+#intro-page {
+ transition: background-image 0.1s;
+ transition-timing-function: step-start;
 }
 
 #configurator-cta {
@@ -90,12 +109,13 @@ html {
 	overflow: hidden;
 	top: 50%;
   transform: translateY(-50%);
+}
 
-	.thumbnail-wrapper {
-		overflow: hidden;
-		float: left;
-		transition: width 1s;
-	}
+.thumbnail-wrapper {
+	overflow: hidden;
+	float: left;
+	transition: width 1s;
+	transform: translate3d(0px, 0px, 0px);
 }
 
 .video {
@@ -105,23 +125,25 @@ html {
   transform: translateY(-50%);
 	float: left;
 	overflow: hidden;
+}
 
-	&-still {
-		width: 25%;
-		float: left;
-		transition: width 1s;
-		height: 736px;
+.video-still {
+	width: 25%;
+	float: left;
+	transition: width 1s;
+	transform: translate3d(0px, 0px, 0px);
+	height: 736px;
+}
 
-		&-play-button {
-			width: 75px;
-			top: 40%;
-			transform: translateY(-50%);
-			position: absolute;
-			left: 10%;
-			pointer-events: none;
-			transition: all 0.3s;
-		}
-	}
+.video-still-play-button {
+	width: 75px;
+	top: 40%;
+	transform: translateY(-50%);
+	position: absolute;
+	left: 10%;
+	pointer-events: none;
+	transition: all 0.3s;
+	z-index: 2;
 }
 
 #player-close-button {
@@ -139,6 +161,7 @@ html {
 	height: 100%;
 	background-color: #000;
 	overflow: hidden;
+	z-index: 2;
 }
 
 #contact-info {

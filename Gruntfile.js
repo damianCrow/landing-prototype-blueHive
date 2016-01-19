@@ -73,7 +73,7 @@ module.exports = function(grunt) {
 
             js: {
                 files: ["js/*.js"],
-                tasks: ["uglify:dev", "autoprefixer"]
+                tasks: ["uglify:dev"]
             },
 
             scss: {
@@ -83,6 +83,6 @@ module.exports = function(grunt) {
         }
     });
 
-    grunt.registerTask("run", ["sass:dev", "uglify:dev", "connect:server", "watch"]);
+    grunt.registerTask("run", ["sass:dev", "uglify:dev", "connect:server", "autoprefixer", "watch"]);
     grunt.registerTask("default", "run");
 };
