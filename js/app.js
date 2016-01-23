@@ -271,22 +271,36 @@ function updateView(eventType) {
 
 var sectionAnimationComplete = true;
 
+var findAccestor = function (elem, selector) {
+
+  var firstChar = selector.charAt(0);
+
+  for ( ; elem && elem !== document; elem = elem.parentNode ) {
+
+    if ( elem.tagName.toLowerCase() === selector ) {
+        return elem;
+    }
+  }
+}
+
 function animateSection(eventTarget, eventType) {
 
   sectionAnimationComplete = false;
 
   var currentSectionIndex;
 
-  currentSectionIndex = pageSectionsArray.indexOf(eventTarget.closest('.section'));
+  currentSectionIndex = pageSectionsArray.indexOf(findAccestor(eventTarget, 'section'));
   
   if(currentSectionIndex >= 0 && currentSectionIndex < pageSectionsArray.length -1) {
 
     if(eventType === 'swipeup') {
-      pageSectionsArray[currentSectionIndex].style.transition = 'transform 0.75s ease-in';
+      pageSectionsArray[currentSectionIndex].style.zIndex = '-1';
+      pageSectionsArray[currentSectionIndex].style.webkitTransition = '-webkit-transform 0.75s ease-in';
       pageSectionsArray[currentSectionIndex].classList.add('animate-up');
 
       setTimeout(function() {
-        pageSectionsArray[currentSectionIndex].style.transition = 'transform 0s';
+        pageSectionsArray[currentSectionIndex].style.zIndex = '1';
+        pageSectionsArray[currentSectionIndex].style.webkitTransition = '-webkit-transform 0s';
         pageSectionsArray[currentSectionIndex].classList.remove('animate-up');
       }, 800)
     }
@@ -295,13 +309,13 @@ function animateSection(eventTarget, eventType) {
   if(currentSectionIndex > 0 && currentSectionIndex < pageSectionsArray.length) {
 
     if(eventType === 'swipedown') {
-      pageSectionsArray[currentSectionIndex].style.transition = 'transform 0.75s ease-in';
+      pageSectionsArray[currentSectionIndex].style.webkitTransition = '-webkit-transform 0.75s ease-in';
       pageSectionsArray[currentSectionIndex].classList.add('animate-down');
-      pageSectionsArray[currentSectionIndex].style.zIndex = '-10';
+      pageSectionsArray[currentSectionIndex].style.zIndex = '-1';
 
       setTimeout(function() {
         pageSectionsArray[currentSectionIndex].style.zIndex = '1';
-        pageSectionsArray[currentSectionIndex].style.transition = 'transform 0s';
+        pageSectionsArray[currentSectionIndex].style.webkitTransition = '-webkit-transform 0s';
         pageSectionsArray[currentSectionIndex].classList.remove('animate-down');
       }, 800)
     }

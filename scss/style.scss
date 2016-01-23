@@ -64,20 +64,17 @@ html {
 
 .animate-up {
 	backface-visibility: hidden;
-	transform: translate3d(0px, 0px, 0px);
-	transform: scaleX(0.8) rotateX(50deg) translateY(100%); 
+	transform: translate3d(0px, 0px, 0px) scaleX(0.8) rotateX(50deg) translateY(100%); 
 }
 
 .animate-down {
 	backface-visibility: hidden;
-	transform: translate3d(0px, 0px, 0px);
-	transform: scaleX(0.8) rotateX(-50deg) translateY(-100%); 
+	transform: translate3d(0px, 0px, 0px) scaleX(0.8) rotateX(-50deg) translateY(-100%); 
 }
 
 .section {
 	background-size: 100%;
 	background-repeat: no-repeat;
-	z-index: 1;
 }
 
 #configurator {
