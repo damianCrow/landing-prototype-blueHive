@@ -12,9 +12,9 @@ html {
 #app-wrapper {
 	background-color: #000000;
 	top: 0;
-	transition: top 0.75s ease-in-out;
+	transition: top 0.75s ease-out;
 	visibility: hidden;
-	transform: translate3d(0px, 0px, 0px);
+	transform: rotate3d(0px,0px,0px,0deg);
 	backface-visibility: hidden;
 }
 
@@ -45,19 +45,89 @@ html {
 #intro-page-background-wrapper {
 	width: 100%;
 	height: 100%;
-	transition: all 0.01s;
-	background-repeat: no-repeat;
-	background-size: 100%;
-	animation-timing-function: step-end;
+	position: relative;
+	max-height: 736px;
 }
 
-#header-logo {
+#logo {
+	background-image: url('images/intro-images/Logo-sprite.png');
+  width: 100%;
+  height: 191px;
+  position: absolute;
+  top: 35%;
+  background-repeat: no-repeat;
+  background-size: 7452px;
+}
+
+.animate-logo {
+	animation: animate-logo 3s ease-out forwards;
+	animation-timing-function: step-start;
+}
+
+@keyframes animate-logo {
+
+	0% {
+		background-position: 0;
+	}
+	6% {
+		background-position: -414px;
+	}
+	12% {
+		background-position: -828px;
+	}
+	18% {
+		background-position: -1242px;
+	}
+	24% {
+		background-position: -1656px;
+	}
+	30% {
+		background-position: -2070px;
+	}
+	36% {
+		background-position: -2484px;
+	}
+	42% {
+		background-position: -2898px;
+	}
+	48% {
+		background-position: -3312px;
+	}
+	54% {
+		background-position: -3726px;
+	}
+	60% {
+		background-position: -4140px;
+	}
+	66% {
+		background-position: -4554px;
+	}
+	72% {
+		background-position: -4968px;
+	}
+	78% {
+		background-position: -5382px;
+	}
+	84% {
+		background-position: -5796px;
+	}
+	90% {
+		background-position: -6210px;
+	}
+	96% {
+		background-position: -6624px;
+	}
+	100% {
+		background-position: -7038px;
+	}
+}
+
+#car {
 	position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 1;
-  opacity: 0;
-  top: 70px;
+  top: 0px;
+  height: 100%;
   transition: all 2s ease-in-out;
 }
 
