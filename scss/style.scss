@@ -1,3 +1,10 @@
+@media screen and (orientation: landscape) {
+
+	html {
+		max-width: 375px;
+	} 
+}
+
 html {
 	overflow: hidden;
 }

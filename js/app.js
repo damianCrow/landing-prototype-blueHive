@@ -285,8 +285,6 @@ var findAccestor = function (elem, selector) {
 
 function animateSection(eventTarget, eventType) {
 
-  sectionAnimationComplete = false;
-
   var currentSectionIndex;
 
   currentSectionIndex = pageSectionsArray.indexOf(findAccestor(eventTarget, 'section'));
@@ -294,14 +292,17 @@ function animateSection(eventTarget, eventType) {
   if(currentSectionIndex >= 0 && currentSectionIndex < pageSectionsArray.length -1) {
 
     if(eventType === 'swipeup') {
-      pageSectionsArray[currentSectionIndex].style.zIndex = '-1';
+
+      sectionAnimationComplete = false;
       pageSectionsArray[currentSectionIndex].style.webkitTransition = '-webkit-transform 0.75s ease-in';
       pageSectionsArray[currentSectionIndex].classList.add('animate-up');
+      pageSectionsArray[currentSectionIndex].style.zIndex = '-10';
 
       setTimeout(function() {
-        pageSectionsArray[currentSectionIndex].style.zIndex = '1';
         pageSectionsArray[currentSectionIndex].style.webkitTransition = '-webkit-transform 0s';
         pageSectionsArray[currentSectionIndex].classList.remove('animate-up');
+        pageSectionsArray[currentSectionIndex].style.zIndex = '1';
+        sectionAnimationComplete = true;
       }, 800)
     }
   }
@@ -309,6 +310,8 @@ function animateSection(eventTarget, eventType) {
   if(currentSectionIndex > 0 && currentSectionIndex < pageSectionsArray.length) {
 
     if(eventType === 'swipedown') {
+
+      sectionAnimationComplete = false;
       pageSectionsArray[currentSectionIndex].style.webkitTransition = '-webkit-transform 0.75s ease-in';
       pageSectionsArray[currentSectionIndex].classList.add('animate-down');
       pageSectionsArray[currentSectionIndex].style.zIndex = '-1';
@@ -317,12 +320,10 @@ function animateSection(eventTarget, eventType) {
         pageSectionsArray[currentSectionIndex].style.zIndex = '1';
         pageSectionsArray[currentSectionIndex].style.webkitTransition = '-webkit-transform 0s';
         pageSectionsArray[currentSectionIndex].classList.remove('animate-down');
+        sectionAnimationComplete = true;
       }, 800)
     }
   }
-  setTimeout(function() {
-    sectionAnimationComplete = true; 
-  }, 800)
 }
 
 // HAMMER INSTANCES CODE \\
