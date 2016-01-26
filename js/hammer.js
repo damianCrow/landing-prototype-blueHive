@@ -1838,7 +1838,7 @@ inherit(SwipeRecognizer, AttrRecognizer, {
     defaults: {
         event: 'swipe',
         threshold: 100,
-        velocity: 0.4,
+        velocity: 0.2,
         direction: DIRECTION_HORIZONTAL | DIRECTION_VERTICAL,
         pointers: 1
     },

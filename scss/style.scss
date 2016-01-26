@@ -1,7 +1,7 @@
 @media screen and (orientation: landscape) {
 
 	html {
-		max-width: 375px;
+		max-width: 414px;
 	} 
 }
 
@@ -12,9 +12,8 @@ html {
 #app-wrapper {
 	background-color: #000000;
 	top: 0;
-	transition: top 0.75s ease-out;
+	transition: all 0.75s ease-out;
 	visibility: hidden;
-	transform: rotate3d(0px,0px,0px,0deg);
 	backface-visibility: hidden;
 }
 
@@ -30,7 +29,9 @@ html {
 
 .left-arrow, .right-arrow {
 	position: absolute;
-	font-size: 60px
+	font-size: 60px;
+	font-weight: bolder;
+	transform: translateZ(1px);
 }
 
 .left-arrow {
@@ -46,7 +47,6 @@ html {
 	width: 100%;
 	height: 100%;
 	position: relative;
-	max-height: 736px;
 }
 
 #logo {
@@ -54,80 +54,21 @@ html {
   width: 100%;
   height: 191px;
   position: absolute;
-  top: 35%;
+  top: 33%;
   background-repeat: no-repeat;
   background-size: 7452px;
 }
 
 .animate-logo {
-	animation: animate-logo 3s ease-out forwards;
+	animation: animate-logo 1.75s ease-out forwards;
 	animation-timing-function: step-start;
-}
-
-@keyframes animate-logo {
-
-	0% {
-		background-position: 0;
-	}
-	6% {
-		background-position: -414px;
-	}
-	12% {
-		background-position: -828px;
-	}
-	18% {
-		background-position: -1242px;
-	}
-	24% {
-		background-position: -1656px;
-	}
-	30% {
-		background-position: -2070px;
-	}
-	36% {
-		background-position: -2484px;
-	}
-	42% {
-		background-position: -2898px;
-	}
-	48% {
-		background-position: -3312px;
-	}
-	54% {
-		background-position: -3726px;
-	}
-	60% {
-		background-position: -4140px;
-	}
-	66% {
-		background-position: -4554px;
-	}
-	72% {
-		background-position: -4968px;
-	}
-	78% {
-		background-position: -5382px;
-	}
-	84% {
-		background-position: -5796px;
-	}
-	90% {
-		background-position: -6210px;
-	}
-	96% {
-		background-position: -6624px;
-	}
-	100% {
-		background-position: -7038px;
-	}
 }
 
 #car {
 	position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  top: 0px;
-  height: 100%;
+  top: -6%;
   transition: all 2s ease-in-out;
 }
 
@@ -141,12 +82,13 @@ html {
 
 .animate-up {
 	backface-visibility: hidden;
-	transform: translate3d(0px, 0px, 0px) scaleX(0.8) rotateX(50deg) translateY(100%); 
+	transform: scaleX(0.8) translateY(85%) translateZ(-1px); 
 }
 
 .animate-down {
+	z-index: -10;
 	backface-visibility: hidden;
-	transform: translate3d(0px, 0px, 0px) scaleX(0.8) rotateX(-50deg) translateY(-100%); 
+	transform: scaleX(0.8) translateY(-85%) translateZ(-1px); 
 }
 
 .section {
@@ -217,7 +159,8 @@ html {
 	left: 10%;
 	pointer-events: none;
 	transition: all 0.3s;
-	z-index: 2;
+	transform: translateZ(1px);
+	z-index: 3;
 }
 
 #player-close-button {
@@ -240,4 +183,62 @@ html {
 
 #contact-info {
 	background-image: url('images/KMI.png');
+}
+
+@keyframes animate-logo {
+
+	0% {
+		background-position: 0;
+	}
+	6% {
+		background-position: -414px;
+	}
+	12% {
+		background-position: -828px;
+	}
+	18% {
+		background-position: -1242px;
+	}
+	24% {
+		background-position: -1656px;
+	}
+	30% {
+		background-position: -2070px;
+	}
+	36% {
+		background-position: -2484px;
+	}
+	42% {
+		background-position: -2898px;
+	}
+	48% {
+		background-position: -3312px;
+	}
+	54% {
+		background-position: -3726px;
+	}
+	60% {
+		background-position: -4140px;
+	}
+	66% {
+		background-position: -4554px;
+	}
+	72% {
+		background-position: -4968px;
+	}
+	78% {
+		background-position: -5382px;
+	}
+	84% {
+		background-position: -5796px;
+	}
+	90% {
+		background-position: -6210px;
+	}
+	96% {
+		background-position: -6624px;
+	}
+	100% {
+		background-position: -7038px;
+	}
 }
